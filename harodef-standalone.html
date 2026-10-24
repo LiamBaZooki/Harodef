@@ -1,0 +1,133 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>הרודף – Harodef</title>
+<script src="https://cdn.jsdelivr.net/npm/peerjs@1.5.4/dist/peerjs.min.js"></script>
+<style>
+:root{--bg:#0b1020;--p:#16213e;--c:#1f2d52;--t:#f2f5ff;--m:#9aa7cf;--a:#ffcc33;--g:#3ddc84;--r:#ff5470;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#e9eefc;--p:#fff;--c:#e3e9fb;--t:#10162b;--m:#55608a;color-scheme:light}}
+:root[data-theme=dark]{--bg:#0b1020;--p:#16213e;--c:#1f2d52;--t:#f2f5ff;--m:#9aa7cf}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--t);font-family:system-ui,"Segoe UI",Arial,sans-serif}
+body{display:grid;place-items:center}
+#s{width:min(100vw,177.78vh);aspect-ratio:16/9;background:var(--p);padding:2%;box-sizing:border-box;display:flex;flex-direction:column;gap:1.5%;overflow:hidden;font-size:min(1.9vw,3.3vh)}
+.hd{display:flex;justify-content:space-between;align-items:center;font-size:1.3em}
+#tm{color:var(--a);font-weight:700;font-size:1.5em}
+.c{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2%;text-align:center}
+h2{margin:0;font-size:1.6em}.m{color:var(--m);margin:0}
+button,input{font:inherit;padding:.4em .9em;border-radius:.5em;border:2px solid var(--c);background:var(--c);color:var(--t)}
+button{cursor:pointer;background:var(--a);color:#222;border-color:var(--a);font-weight:700}button:disabled{opacity:.4}
+.row{display:flex;gap:.6em;flex-wrap:wrap;justify-content:center}
+.pl{display:flex;flex-wrap:wrap;gap:.5em;justify-content:center}
+.ch{background:var(--c);padding:.25em .8em;border-radius:2em}.ch.on{outline:2px solid var(--a)}
+.w{color:var(--g)}.l{color:var(--r)}
+.bd{display:grid;grid-template-columns:repeat(8,1fr);gap:.4em;width:90%}
+.bd div{background:var(--c);border-radius:.5em;padding:.5em 0;font-size:1.5em;min-height:2.2em}
+.bd .x{outline:2px dashed var(--g)}
+.q{font-size:1.7em;font-weight:700}
+.o{background:var(--c);color:var(--t);border-color:var(--c);min-width:30%}
+</style></head><body><div id="s"></div>
+<script>
+const MIN=location.hash=='#test'?2:3,TQ=90000,TD=30000,NEED=40;
+const QZ=[["כמה לבבות יש לתמנון?",["3","שלוש"]],["מהו האיבר הגדול ביותר בגוף האדם?",["עור"]],["באיזה צבע צבועה הקופסה השחורה במטוס?",["כתום","כתומה"]],["איך קוראים לכלב של דורותי בקוסם מארץ עוץ?",["טוטו"]],["כמה צלעות יש לאדם בדרך כלל?",["24","עשרים וארבע"]],["מהו החומר הקשה ביותר בגוף האדם?",["אמייל"]],["איזו ציפור מביאה תינוקות לפי האגדה?",["חסידה"]],["מהי בירת אוסטרליה?",["קנברה"]],["מהי בירת קנדה?",["אוטווה"]],["כמה אפסים יש במיליון?",["6","שש"]],["מהו הסמל הכימי של זהב?",["au"]],["איזו חיה היא המהירה ביותר ביבשה?",["ברדלס","צאטה","צית׳ה","צ׳יטה"]],["מי כתב את רומיאו ויולייטה?",["שייקספיר"]],["כמה ימים יש בשנה מעוברת?",["366"]],["איזה כוכב לכת הקרוב ביותר לשמש?",["חמה","מרקורי"]],["איזה בעל חיים לפי המיתוס תוקע את הראש בחול?",["יען"]],["מי צייר את המונה ליזה?",["דה וינצי","לאונרדו"]],["איזו מדינה המציאה את הפיצה?",["איטליה"]],["איזה חרק מייצר דבש?",["דבורה","דבורים"]],["כמה רגליים יש לעכביש?",["8","שמונה"]],["כמה ימים נמשכת מלחמת ששת הימים?",["6","שישה","שש"]],["איזה בעל חיים הוא הגבוה ביותר בעולם?",["ג׳ירף","גירף"]]];
+const AM=[["איזה כוכב לכת מכונה הכוכב האדום?",["נוגה","מאדים","שבתאי","צדק"],1],["מי היה נשיא ארצות הברית הראשון?",["אברהם לינקולן","תומס ג׳פרסון","ג׳ורג׳ וושינגטון","ג׳ון אדמס"],2],["מהו האוקיינוס הגדול ביותר?",["האטלנטי","השקט","ההודי","הארקטי"],1],["באיזו מדינה בארצות הברית נמצאת הוליווד?",["קליפורניה","טקסס","פלורידה","ניו יורק"],0],["כמה כוכבים יש על דגל ארצות הברית?",["48","50","52","45"],1],["מי צייר את ליל הכוכבים?",["מונה","ואן גוך","פיקאסו","דה וינצי"],1],["מאיזו מדינה קיבלה ארצות הברית את פסל החירות?",["בריטניה","גרמניה","צרפת","איטליה"],2],["מהו הסמל הכימי של חמצן?",["O","H","C","N"],0],["מי כתב את הרפתקאות טום סוייר?",["מארק טווין","המינגוויי","דיקנס","ג׳ק לונדון"],0],["איזו מדינה בארצות הברית גדולה ביותר בשטחה?",["טקסס","קליפורניה","אלסקה","מונטנה"],2],["מי דרך ראשון על הירח?",["בז אולדרין","ניל ארמסטרונג","יורי גגרין","ג׳ון גלן"],1],["כמה שחקנים מכל קבוצה על המגרש בכדורסל?",["5","6","7","11"],0],["מהו ההר הגבוה בעולם?",["אוורסט","קילימנג׳רו","מון בלאן","אלברוס"],0],["איזו ציפור היא הסמל הלאומי של ארצות הברית?",["ינשוף","נשר קירח","עיט זהוב","תוכי"],1],["מהי בירת ארצות הברית?",["ניו יורק","לוס אנג׳לס","וושינגטון די סי","שיקגו"],2],["כמה צבעים יש בקשת?",["5","6","7","8"],2]];
+let R,me,name='',S={ph:'lobby'},mic=null,pcs={},auds={},AN={},last='';
+const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const players=()=>R?R.peers().filter(p=>p.presence.name&&p.kind=='viewer').sort((a,b)=>a.peer<b.peer?-1:1):[];
+const nm=p=>{const x=R&&R.peers().find(q=>q.peer==p);return x?esc(x.presence.name):'?'};
+const host=()=>{const l=players();return l[0]&&l[0].peer},isHost=()=>host()==me;
+const rq=()=>Math.floor(Math.random()*QZ.length);
+const norm=v=>String(v).toLowerCase().replace(/[^\p{L}\p{N}]/gu,'');
+const ok=(v,l)=>{const n=norm(v);return l.some(a=>{a=norm(a);return n==a||(a.length>2&&n.includes(a))})};
+function opt(v,os){if(typeof v=='number')return v;let n=norm(v).replace(/^תשובה/,'');const L={'א':0,'ב':1,'ג':2,'ד':3,a:0,b:1,c:2,d:3};if(n in L)return L[n];return os.findIndex(o=>{o=norm(o);return n==o||n.includes(o)})}
+function push(){R.emit('st',S);render();gate()}
+function start(){const l=players().map(p=>p.peer),ch=l[Math.floor(Math.random()*l.length)],o=l.filter(x=>x!=ch).sort(()=>Math.random()-.5);S={ph:'quiz',ch,ord:o,i:0,sc:{},st:{},q:rq(),te:Date.now()+TQ,dl:null};o.forEach(x=>S.sc[x]=0);push()}
+function endTurn(){const p=S.ord[S.i];if(S.sc[p]>=NEED){S.ph='duel';S.dl={p,c:S.ch,pp:4,cp:1,stage:'pick',qi:0,te:0,ad:{},last:null};push()}else{S.st[p]='out';next()}}
+function next(){S.i++;S.dl=null;if(S.i>=S.ord.length)S.ph='end';else{S.ph='quiz';S.q=rq();S.te=Date.now()+TQ}push()}
+function newQ(){const d=S.dl;d.stage='play';d.qi=Math.floor(Math.random()*AM.length);d.te=Date.now()+TD;d.ad={};AN={}}
+function fin(){S.dl.stage='done';S.dl.te=Date.now()+4500}
+function resolve(){const d=S.dl,q=AM[d.qi],pc=AN[d.p]==q[2],cc=AN[d.c]==q[2];if(pc)d.pp++;if(cc)d.cp++;d.last={pc,cc,a:q[2]};
+if(d.pp>=8){d.res='w';S.st[d.p]='win';fin()}else if(d.cp>=d.pp){d.res='c';S.st[d.p]='caught';fin()}else{d.stage='rev';d.te=Date.now()+2500}push()}
+function onAct(m){if(!isHost())return;const a=m.data||{},d=S.dl;
+if(a.t=='pick'&&S.ph=='duel'&&d.stage=='pick'&&m.peer==d.p){if(a.v=='c'){d.pp=3;S.sc[d.p]+=10}else if(a.v=='f'){d.pp=5;S.sc[d.p]-=10}else if(a.v!='s')return;newQ();push()}
+else if(a.t=='ans'){
+if(S.ph=='quiz'&&m.peer==S.ord[S.i]&&Date.now()<S.te){if(ok(a.v,QZ[S.q][1]))S.sc[m.peer]+=5;S.q=rq();push()}
+else if(S.ph=='duel'&&d.stage=='play'&&(m.peer==d.p||m.peer==d.c)&&AN[m.peer]==null){const i=opt(a.v,AM[d.qi][1]);if(i<0)return;AN[m.peer]=i;d.ad[m.peer]=1;if(AN[d.p]!=null&&AN[d.c]!=null)resolve();else push()}}}
+function canAns(){const d=S.dl;return S.ph=='quiz'?me==S.ord[S.i]:S.ph=='duel'&&d&&d.stage=='play'&&(me==d.p||me==d.c)&&!d.ad[me]}
+function send(v){if(R&&canAns())R.emit('act',{t:'ans',v})}
+function gate(){const d=S.ph=='duel'&&S.dl,du=d&&(me==d.p||me==d.c),sp=S.ph=='quiz'?me==S.ord[S.i]:S.ph=='duel'?du:true;
+mic&&mic.getAudioTracks().forEach(t=>t.enabled=!!sp);Object.values(auds).forEach(a=>a.muted=!!du)}
+function createRoom(){return new Promise((res,rej)=>{
+let my,pe=[],hs={},ph=[],pres=new Map(),conns=new Map(),n=1,hconn,isH=false;
+const pad=i=>String(i).padStart(6,'0'),er=m=>{const e=$('er');if(e)e.textContent=m};
+$('s').innerHTML='<div class=hd><b>🕵️ הרודף · Harodef</b></div><div class=c><h2>צור חדר או הצטרף</h2><div class=row><button id=mk>צור חדר חדש</button></div><div class=row><input id=cd maxlength=4 placeholder="קוד חדר" style="text-transform:uppercase;width:6em;text-align:center"><button id=jn>הצטרף</button></div><p class=m id=er></p></div>';
+const local=m=>{
+if(m.t=='hello'){my=m.peer;res(R)}
+else if(m.t=='msg')(hs[m.topic]||[]).forEach(f=>f({peer:m.peer,isMe:m.peer==my,data:m.data,topic:m.topic}));
+else if(m.t=='peers'){const old=pe.map(p=>p.peer);pe=m.peers.map(p=>({peer:p.peer,presence:p.presence,kind:'viewer',isMe:p.peer==my,sameTab:p.peer==my}));
+const joined=pe.filter(p=>!old.includes(p.peer));ph.forEach(f=>f({peers:pe,joined,left:[],updated:[]}))}};
+const bcast=o=>{local(o);conns.forEach(c=>c.open&&c.send(o))};
+const sendPeers=()=>bcast({t:'peers',peers:[...pres].map(([peer,presence])=>({peer,presence}))});
+const route=(o,from)=>{if(!o)return;
+if(o.t=='emit'&&/^[a-z][a-z0-9_.-]{0,47}$/.test(o.topic))bcast({t:'msg',topic:o.topic,data:o.data,peer:from});
+else if(o.t=='pres'&&o.p&&typeof o.p.name=='string'){pres.set(from,{name:o.p.name.slice(0,14)});sendPeers()}};
+const tx=o=>{if(isH)route(o,pad(1));else if(hconn&&hconn.open)hconn.send(o)};
+const R={emit:(t,d)=>tx({t:'emit',topic:t,data:d}),on:(t,f)=>{(hs[t]=hs[t]||[]).push(f)},presence:p=>tx({t:'pres',p}),peers:()=>pe,onPeers:f=>ph.push(f)};
+const mkHost=()=>{const code=Math.random().toString(36).slice(2,6).toUpperCase(),p=new Peer('harodef-'+code);
+p.on('error',e=>{if(e.type=='unavailable-id')mkHost();else er('שגיאת חיבור: '+e.type)});
+p.on('open',()=>{isH=true;my=pad(1);window.RC=code;pres.set(my,{});res(R);setTimeout(sendPeers,0)});
+p.on('connection',c=>{let id;
+c.on('open',()=>{id=pad(++n);conns.set(id,c);pres.set(id,{});c.send({t:'hello',peer:id});sendPeers()});
+c.on('data',o=>id&&route(o,id));
+c.on('close',()=>{conns.delete(id);pres.delete(id);sendPeers()})})};
+const join=code=>{if(code.length<4)return er('הכנס קוד בן 4 תווים');er('מתחבר…');const p=new Peer();
+p.on('error',()=>er('לא נמצא חדר עם הקוד '+code));
+p.on('open',()=>{hconn=p.connect('harodef-'+code,{reliable:true});window.RC=code;
+hconn.on('data',local);
+hconn.on('close',()=>{$('s').innerHTML='<div class=c><h2>החיבור נותק</h2><p class=m>ייתכן שהמארח סגר את הדף.</p><button onclick="location.reload()">חזרה</button></div>'});
+setTimeout(()=>{if(!my)er('לא נמצא חדר עם הקוד '+code)},10000)})};
+$('mk').onclick=mkHost;$('jn').onclick=()=>join($('cd').value.trim().toUpperCase())})}
+/* voice */
+const sig=(to,k,d)=>R.emit('sig',{to,k,d:JSON.parse(JSON.stringify(d))});
+function mk(id){const pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});pcs[id]=pc;
+if(mic)mic.getTracks().forEach(t=>pc.addTrack(t,mic));else pc.addTransceiver('audio',{direction:'recvonly'});
+pc.onicecandidate=e=>e.candidate&&sig(id,'c',e.candidate);
+pc.ontrack=e=>{const a=auds[id]||(auds[id]=new Audio());a.srcObject=e.streams[0];a.play().catch(()=>{});gate()};return pc}
+async function call(id){const pc=mk(id);await pc.setLocalDescription(await pc.createOffer());sig(id,'o',pc.localDescription)}
+function conn(){if(!name||!me||typeof RTCPeerConnection=='undefined')return;players().forEach(p=>{if(p.peer!=me&&!pcs[p.peer]&&me<p.peer)call(p.peer).catch(()=>{})})}
+async function micOn(){try{mic=await navigator.mediaDevices.getUserMedia({audio:true})}catch(e){mic=null}
+try{const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(SR){const r=new SR;r.lang='he-IL';r.continuous=true;r.onresult=e=>{const t=e.results[e.results.length-1];if(t.isFinal)send(t[0].transcript)};r.onend=()=>{try{r.start()}catch(_){}};r.start()}}catch(e){}
+conn();gate()}
+/* ui */
+function board(){const L=players(),o=S.ord||[];return `<div class=pl>${o.concat(S.ch?[S.ch]:[]).map(p=>`<span class="ch ${p==o[S.i]&&S.ph=='quiz'?'on':''}">${p==S.ch?'🕵️ ':''}${nm(p)}${p==S.ch?'':` · ${S.sc[p]}${S.st[p]=='win'?' <b class=w>✔</b>':S.st[p]?' <b class=l>✘</b>':''}`}</span>`).join('')}</div>`}
+function inp(){return `<div class=row><input id=ans autocomplete=off placeholder="הקלד תשובה או דבר למיקרופון"><button data-a=sd>שלח</button><button data-a=sk>דלג</button></div>`}
+function render(){const key=JSON.stringify([S,name,players().map(p=>p.peer+p.presence.name)]);if(key==last)return;last=key;
+const d=S.dl,cur=S.ord&&S.ord[S.i],L=players();let h=`<div class=hd><b>🕵️ הרודף · Harodef</b><span id=tm></span></div><div class=c>`;
+if(!name)h+=`<h2>איך קוראים לך?</h2><div class=row><input id=nm maxlength=14><button data-a=go>כניסה</button></div><p class=m>אפשר גם בלי מיקרופון, אפשר להקליד תשובות.</p>`;
+else if(S.ph=='lobby')h+=`<h2>לובי · ${L.length}/${MIN} שחקנים</h2><p class=m>קוד חדר: <b>${window.RC}</b></p><div class=pl>${L.map(p=>`<span class=ch>${esc(p.presence.name)}${p.peer==host()?' 👑':''}</span>`).join('')}</div>`+(isHost()?`<button data-a=start ${L.length<MIN?'disabled':''}>התחל משחק</button><p class=m>נדרשים לפחות ${MIN} שחקנים</p>`:`<p class=m>ממתינים שהמארח יתחיל…</p>`);
+else if(S.ph=='quiz')h+=board()+`<p class=m>תורו של ${nm(cur)} · נקודות ${S.sc[cur]} מתוך ${NEED} · ${nm(S.ch)} הוא הרודף</p><div class=q>${QZ[S.q][0]}</div>`+(me==cur?inp():`<p class=m>מקשיבים…</p>`);
+else if(S.ph=='duel'){const q=AM[d.qi],du=me==d.p||me==d.c;
+h+=`<h2>${nm(d.p)} נגד ${nm(d.c)}</h2><div class=bd>${[1,2,3,4,5,6,7,8].map(i=>`<div class="${i==8?'x':''}">${d.cp==i?'🕵️':''}${d.pp==i?'🏃':''}${i==8?'🚪':''}</div>`).join('')}</div>`;
+if(d.stage=='pick')h+=me==d.p?`<p>בחר מיקום פתיחה:</p><div class=row><button data-a=pk data-v=c>משבצת 3 · ‎+10 נק׳ (קרוב לרודף)</button><button data-a=pk data-v=s>משבצת 4</button><button data-a=pk data-v=f>משבצת 5 · ‎−10 נק׳</button></div>`:`<p class=m>${nm(d.p)} בוחר מיקום…</p>`;
+else if(d.stage=='done')h+=`<h2 class="${d.res=='w'?'w':'l'}">${d.res=='w'?nm(d.p)+' ברח מהרודף!':nm(d.p)+' נתפס!'}</h2>`;
+else{h+=`<div class=q>${q[0]}</div><div class=row>${q[1].map((o,i)=>`<button class=o data-a=opt data-i=${i} ${du&&d.stage=='play'&&!d.ad[me]?'':'disabled'}>${'אבגד'[i]}. ${esc(o)}</button>`).join('')}</div>`;
+if(d.stage=='rev')h+=`<p>התשובה: ${q[1][d.last.a]} · ${nm(d.p)} ${d.last.pc?'<b class=w>התקדם</b>':'נשאר'} · ${nm(d.c)} ${d.last.cc?'<b class=l>התקדם</b>':'נשאר'}</p>`;
+else if(du)h+=`<p class=m>${d.ad[me]?'נשלח, מחכים…':'ענו בקול או לחצו. אתם לא שומעים אחד את השני.'}</p>`}}
+else{const w=S.ord.filter(p=>S.st[p]=='win').sort((a,b)=>S.sc[b]-S.sc[a])[0];h+=w?`<h2 class=w>🏆 ${nm(w)} ניצח עם ${S.sc[w]} נקודות!</h2>`:`<h2 class=l>🕵️ ${nm(S.ch)} הרודף ניצח!</h2>`+board()+(isHost()?`<button data-a=new>משחק חדש</button>`:'')}
+$('s').innerHTML=h+`</div>`}
+$('s').onclick=e=>{const b=e.target.closest('button');if(!b||!R)return;const a=b.dataset.a;
+if(a=='go'){const v=$('nm').value.trim();if(!v)return;name=v;R.presence({name});micOn();render()}
+else if(a=='start')start();else if(a=='sd'){send($('ans').value);$('ans').value=''}else if(a=='sk')send('');
+else if(a=='opt')send(+b.dataset.i);else if(a=='pk')R.emit('act',{t:'pick',v:b.dataset.v});else if(a=='new'){S={ph:'lobby'};push()}};
+$('s').onkeydown=e=>{if(e.key=='Enter'&&e.target.id=='ans'){send(e.target.value);e.target.value=''}};
+setInterval(()=>{const t=$('tm');if(!t)return;const te=S.ph=='quiz'?S.te:S.ph=='duel'&&S.dl&&S.dl.stage=='play'?S.dl.te:0;t.textContent=te?Math.max(0,Math.ceil((te-Date.now())/1000)):''},250);
+setInterval(()=>{if(!R||!isHost())return;const n=Date.now(),d=S.dl;
+if(S.ph=='quiz'&&n>S.te)endTurn();else if(S.ph=='duel'){if(d.stage=='play'&&n>d.te)resolve();else if(d.stage=='rev'&&n>d.te){newQ();push()}else if(d.stage=='done'&&n>d.te)next()}},400);
+setInterval(()=>{if(R&&isHost()&&S.ph!='lobby')R.emit('st',S)},3000);
+render();
+(async()=>{try{R=await createRoom()}catch(e){}
+if(!R){$('s').innerHTML='<div class=c><h2>🕵️ הרודף</h2><p class=m>לא הצלחנו להתחבר לשרת.</p></div>';return}
+last='';R.on('st',m=>{if(m.peer==host()||!S.ord&&S.ph=='lobby'){S=m.data;gate();render()}});
+R.on('act',onAct);
+R.on('sig',async m=>{const x=m.data;if(!x||x.to!=me||m.isMe)return;let pc=pcs[m.peer];
+try{if(x.k=='o'){pc=mk(m.peer);await pc.setRemoteDescription(x.d);await pc.setLocalDescription(await pc.createAnswer());sig(m.peer,'a',pc.localDescription)}
+else if(pc&&x.k=='a')await pc.setRemoteDescription(x.d);else if(pc&&x.k=='c')await pc.addIceCandidate(x.d)}catch(_){}});
+R.onPeers(c=>{const x=c.peers.find(p=>p.sameTab);if(x)me=x.peer;Object.keys(pcs).forEach(k=>{if(!c.peers.some(p=>p.peer==k)){pcs[k].close();delete pcs[k];delete auds[k]}});conn();if(c.joined.length&&isHost()&&S.ph!='lobby')R.emit('st',S);render()});
+render()})();
+</script></body></html>
